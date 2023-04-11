@@ -14,5 +14,7 @@ test:
 	go test -v -cover ./...
 server:
 	npx kill-port 8080 && go run main.go
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/saranonearth/gobank/db/sqlc Store
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock
