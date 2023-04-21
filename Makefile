@@ -16,5 +16,9 @@ server:
 	npx kill-port 8080 && go run main.go
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/saranonearth/gobank/db/sqlc Store
+docker_build:
+	docker rmi gobank && docker build -t gobank:latest .
+docker_run:
+	npx kill-port 8080 && docker run --network gobank-network -p 8080:8080 -e GIN_MODE=release  gobank:latest
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock
+.PHONY: dockerrun postgres createdb dropdb migrateup migratedown sqlc test server mock
