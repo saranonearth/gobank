@@ -20,5 +20,7 @@ docker_build:
 	docker rmi gobank && docker build -t gobank:latest .
 docker_run:
 	npx kill-port 8080 && docker run --network gobank-network -p 8080:8080 -e GIN_MODE=release  gobank:latest
+compose_up:
+	npx kill-port 8080 && docker compose up --build
 
-.PHONY: dockerrun postgres createdb dropdb migrateup migratedown sqlc test server mock
+.PHONY: compose_up dockerrun postgres createdb dropdb migrateup migratedown sqlc test server mock
